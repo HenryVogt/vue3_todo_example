@@ -1,0 +1,92 @@
+// •••••••••• COLORS ••••••••••
+$textLight: #FCFDF8
+$textDark: #261F44
+$backgroundLight: #FCFDF8
+$backgroundDark: #261F44
+$primary: #75CACA
+$secondary: #EA5B81
+$accent: #9B9CA5
+
+// •••••••••• BORDER + SHADOW ••••••••••
+
+$borderDefault: 1px solid $accent
+$borderRadius: 3px
+
+@mixin boxShadow($color)
+  box-shadow: 0.2em 0.2em 0.5em 0 $color
+
+// •••••••••• MEDIAQUERIES ••••••••••
+$mobile: 320px
+$tablet: 768px
+$desktop: 1280px
+
+@mixin tabletBreakpoint
+  @media (min-width: $tablet)
+    @content
+
+@mixin desktopBreakpoint
+  @media (min-width: $desktop)
+    @content
+
+// •••••••••• CONTAINER STYLING ••••••••••
+$mobileContainer: $mobile - 20px
+$tabletContainer: $tablet - 20px
+$desktopContainer: $desktop - 380px
+
+// •••••••••• BASE STYLING ••••••••••
+body
+  margin: 0
+  padding: 12px
+  background-color: $backgroundLight
+  font-family: sans-serif
+  color: $textDark
+  
+  main
+    margin: 0 auto
+    width: $mobileContainer
+    @include tabletBreakpoint
+      width: $tabletContainer
+    @include desktopBreakpoint
+      width: $desktopContainer
+
+  ul
+    margin: 0
+    padding: 0
+
+// •••••••••• HEADLINES + TEXT ••••••••••
+h1
+  font-size: 32px
+  @include tabletBreakpoint
+    font-size: 40px
+
+h2
+  font-size: 24px
+  @include tabletBreakpoint
+    font-size: 32px
+
+p
+  font-size: 14px
+  @include tabletBreakpoint
+    font-size: 18px
+
+// •••••••••• BUTTON + TEXTAREA ••••••••••
+button
+  border: none
+  background-color: $textDark
+  border-radius: $borderRadius
+  padding: 4px 6px 2px
+  color: $textLight
+  font-family: sans-serif
+  font-size: 14px
+  @include tabletBreakpoint
+    font-size: 18px
+
+  &:hover
+      color: $secondary
+
+input
+  color: $textDark
+  font-family: sans-serif
+  font-size: 14px
+  @include tabletBreakpoint
+    font-size: 18px
