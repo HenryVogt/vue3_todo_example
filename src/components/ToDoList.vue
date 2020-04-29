@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     onDone (id) {
-      this.todos.find(todo => todo.id === id).done = true
+      this.$emit('done', id)
     },
     onDelete (id) {
       this.$emit('delete', id)

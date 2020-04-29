@@ -1,6 +1,6 @@
 <template>
   <div class="newTodo">
-    <input ref='newtodo' v-model="newToDo" @keypress.enter="onNew">
+    <input ref="inputRef" v-model="newToDo" @keypress.enter="onNew">
     <button @click.prevent="onNew">Add</button>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
       if (this.newToDo !== '') {
         this.$emit('new', this.newToDo)
         this.newToDo = ''
-        this.$refs.newtodo.focus()
+        this.$refs.inputRef.focus()
       }
     }
   }

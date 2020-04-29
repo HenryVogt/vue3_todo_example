@@ -4,7 +4,7 @@
     <NewToDo @new="onNew"/>
     <div class="open">
       <h2>Open</h2>
-      <ToDoList v-if="openTodos.length > 0" :todos="openTodos" @delete="onDelete" />
+      <ToDoList v-if="openTodos.length > 0" :todos="openTodos" @done="onDone" @delete="onDelete" />
       <p v-else>you have no open ToDo's! 👍</p>
     </div>
     <div class="done">
@@ -50,6 +50,9 @@ export default {
         value: newToDo,
         done: false
       })
+    },
+    onDone (id) {
+      this.todos.find(todo => todo.id === id).done = true
     },
     onDelete (id) {
       this.todos = this.todos.filter(todo => todo.id !== id)
