@@ -6,18 +6,25 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
   name: 'NewToDo',
-  data: function () {
-    return { newToDo: '' }
-  },
-  methods: {
-    onNew () {
-      if (this.newToDo !== '') {
-        this.$emit('new', this.newToDo)
-        this.newToDo = ''
-        this.$refs.inputRef.focus()
+  setup (props, context) {
+    const newToDo = ref('')
+    const inputRef = ref()
+
+    function onNew () {
+      if (newToDo.value !== '') {
+        context.emit('new', newToDo.value)
+        newToDo.value = ''
+        inputRef.value.focus()
       }
+    }
+
+    return {
+      newToDo,
+      inputRef,
+      onNew
     }
   }
 }

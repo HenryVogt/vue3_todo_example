@@ -1,17 +1,15 @@
 <template>
-  <div class="todos">
-    <ul>
-      <li v-for="todo in todos" :key="todo.id">
-        <ToDo
-          :id="todo.id"
-          :value="todo.value"
-          :done="todo.done"
-          @done="onDone"
-          @delete="onDelete"
-        />
-      </li>
-    </ul>
-  </div>
+  <ul>
+    <li v-for="todo in todos" :key="todo.id">
+      <ToDo
+        :id="todo.id"
+        :value="todo.value"
+        :done="todo.done"
+        @done="onDone"
+        @delete="onDelete"
+      />
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -34,10 +32,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.todos
-  ul
-    list-style: none
+ul
+  list-style: none
 
-    li
-      margin-bottom: 12px
+  li
+    margin-bottom: 12px
 </style>
