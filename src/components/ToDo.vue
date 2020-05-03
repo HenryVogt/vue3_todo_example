@@ -2,19 +2,27 @@
   <div class="todo" :class="{done: done}">
     <p>{{ value }}</p>
     <div v-if="!done" class="buttons">
-      <button @click="$emit('done', id)" >Done</button>
-      <button @click="$emit('delete', id)" >Delete</button>
+      <button @click="onDone(id)" >Done</button>
+      <button @click="onDelete(id)" >Delete</button>
     </div>
   </div>
 </template>
 
 <script>
+import { useTodoEvents } from '@/composables/todo'
 export default {
   name: 'ToDo',
   props: {
     id: { type: Number, required: true },
     value: { type: String, required: true },
     done: { type: Boolean, required: true }
+  },
+  setup (props, context) {
+    const { onDone, onDelete } = useTodoEvents(context)
+    return {
+      onDone,
+      onDelete
+    }
   }
 }
 </script>

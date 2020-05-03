@@ -14,45 +14,15 @@
 </template>
 
 <script>
-import { reactive, ref, computed } from 'vue'
+import { useTodoState } from '@/composables/todo'
 import ToDoList from '@/components/ToDoList.vue'
 import NewToDo from '@/components/NewToDo.vue'
 
 export default {
   name: 'App',
   components: { ToDoList, NewToDo },
-  setup () {
-    const idCounter = ref(1)
-    const state = reactive({
-      todos: [
-        { id: idCounter.value++, value: 'Feed the trolls: "Vue > React"', done: false },
-        { id: idCounter.value++, value: 'Lay down and cry 😭', done: false },
-        { id: idCounter.value++, value: 'Party hard all night long', done: false }
-      ]
-    })
-
-    const openTodos = computed(() => {
-      const open = state.todos.filter(item => (item.done === false))
-      return [...open.sort((a, b) => { return a.id < b.id })]
-    })
-
-    const doneTodos = computed(() => {
-      const done = state.todos.filter(item => (item.done === true))
-      return [...done.sort((a, b) => { return a.id > b.id })]
-    })
-
-    function setNew (todoValue) {
-      state.todos.push({ id: idCounter.value++, value: todoValue, done: false })
-    }
-
-    function setDone (id) {
-      state.todos.find(todo => todo.id === id).done = true
-    }
-
-    function setDelete (id) {
-      state.todos = state.todos.filter(todo => todo.id !== id)
-    }
-
+  setup (context) {
+    const { openTodos, doneTodos, setNew, setDone, setDelete } = useTodoState(context)
     return {
       openTodos,
       doneTodos,

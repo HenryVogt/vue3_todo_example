@@ -11,7 +11,7 @@ export default {
   name: 'NewToDo',
   setup (props, context) {
     const todo = ref('')
-    const inputRef = ref()
+    const inputRef = ref(null)
 
     function onNew () {
       if (todo.value !== '') {
