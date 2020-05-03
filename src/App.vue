@@ -3,12 +3,12 @@
     <h1>ToDo's</h1>
     <NewToDo @new="onNew"/>
     <div class="open">
-      <h2>Open</h2>
+      <h2>{{ openTodos.length }} Open</h2>
       <ToDoList v-if="openTodos.length > 0" :todos="openTodos" @done="onDone" @delete="onDelete" />
       <p v-else>you have no open ToDo's! 👍</p>
     </div>
     <div class="done">
-      <h2>Done</h2>
+      <h2>{{ doneTodos.length }} Done</h2>
       <ToDoList v-if="doneTodos.length > 0" :todos="doneTodos" />
       <p v-else>why are there no finished ToDo's?</p>
     </div>
