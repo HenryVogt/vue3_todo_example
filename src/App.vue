@@ -1,62 +1,64 @@
 <template>
   <h1>ToDo's</h1>
-  <NewToDo @new="onNew"/>
+  <NewToDo @new="setNew"/>
   <div class="open">
-    <h2>Open</h2>
-    <ToDoList v-if="state.openTodos.length > 0" :todos="state.openTodos" @done="onDone" @delete="onDelete" />
+    <h2>{{ openTodos.length }} Open</h2>
+    <ToDoList v-if="openTodos.length > 0" :todos="openTodos" @done="setDone" @delete="setDelete" />
     <p v-else>you have no open ToDo's! 👍</p>
   </div>
   <div class="done">
-    <h2>Done</h2>
-    <ToDoList v-if="state.doneTodos.length > 0" :todos="state.doneTodos" />
+    <h2>{{ doneTodos.length }} Done</h2>
+    <ToDoList v-if="doneTodos.length > 0" :todos="doneTodos" />
     <p v-else>why are there no finished ToDo's?</p>
   </div>
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import ToDoList from '@/components/ToDoList.vue'
 import NewToDo from '@/components/NewToDo.vue'
-
-let idCounter = 1
 
 export default {
   name: 'App',
   components: { ToDoList, NewToDo },
   setup () {
+    const idCounter = ref(1)
     const state = reactive({
       todos: [
-        { id: idCounter++, value: 'Feed the trolls: "Vue > React"', done: false },
-        { id: idCounter++, value: 'Lay down and cry 😭', done: false },
-        { id: idCounter++, value: 'Party hard all night long', done: false }
-      ],
-      openTodos: computed(() => {
-        const open = state.todos.filter(item => (item.done === false))
-        return [...open.sort((a, b) => { return a.id < b.id })]
-      }),
-      doneTodos: computed(() => {
-        const done = state.todos.filter(item => (item.done === true))
-        return [...done.sort((a, b) => { return a.id > b.id })]
-      })
+        { id: idCounter.value++, value: 'Feed the trolls: "Vue > React"', done: false },
+        { id: idCounter.value++, value: 'Lay down and cry 😭', done: false },
+        { id: idCounter.value++, value: 'Party hard all night long', done: false }
+      ]
     })
 
-    function onNew (newToDo) {
-      state.todos.push({ id: idCounter++, value: newToDo, done: false })
+    const openTodos = computed(() => {
+      const open = state.todos.filter(item => (item.done === false))
+      return [...open.sort((a, b) => { return a.id < b.id })]
+    })
+
+    const doneTodos = computed(() => {
+      const done = state.todos.filter(item => (item.done === true))
+      return [...done.sort((a, b) => { return a.id > b.id })]
+    })
+
+    function setNew (todoValue) {
+      state.todos.push({ id: idCounter.value++, value: todoValue, done: false })
     }
 
-    function onDone (id) {
+    function setDone (id) {
       state.todos.find(todo => todo.id === id).done = true
     }
 
-    function onDelete (id) {
+    function setDelete (id) {
       state.todos = state.todos.filter(todo => todo.id !== id)
     }
 
     return {
-      state,
-      onNew,
-      onDone,
-      onDelete
+      openTodos,
+      doneTodos,
+      setNew,
+      setDone,
+      setDelete
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="newTodo">
-    <input ref="inputRef" v-model="newToDo" @keypress.enter="onNew">
+    <input ref="inputRef" v-model="todo" @keypress.enter="onNew">
     <button @click.prevent="onNew">Add</button>
   </div>
 </template>
@@ -10,19 +10,19 @@ import { ref } from 'vue'
 export default {
   name: 'NewToDo',
   setup (props, context) {
-    const newToDo = ref('')
+    const todo = ref('')
     const inputRef = ref()
 
     function onNew () {
-      if (newToDo.value !== '') {
-        context.emit('new', newToDo.value)
-        newToDo.value = ''
+      if (todo.value !== '') {
+        context.emit('new', todo.value)
+        todo.value = ''
         inputRef.value.focus()
       }
     }
 
     return {
-      newToDo,
+      todo,
       inputRef,
       onNew
     }
